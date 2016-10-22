@@ -1,0 +1,18 @@
+#+TITLE: idie
+
+Idie is simple imageboard engine built with Django web framework.
+
+Proceed with caution!
+This is our sandbox and first steps in web programming with Python. Currently it contains only skeleton of imageboard engine without some essential features.  
+
+** Contributors
+
+- [[http://github.com/jubnzv/idie/commits/master?author=knifelovesyou][knifelovesyou]]
+- [[http://github.com/jubnzv/idie/commits/master?author=jubnzv][jubnzv]]
+
+** Dependencies
+(see "requirements" dir)
+
+- Python 3.5
+- MariaDB 10
+- Django 1.10
