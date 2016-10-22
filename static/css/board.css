@@ -1,0 +1,18 @@
+#board-header h1 {
+  display: block;
+  clear: both;
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.navigation {
+    text-align: center;
+}
+
+.footer {
+    text-align: center;
+}
+
+.create-thread {
+    text-align: center;
+}

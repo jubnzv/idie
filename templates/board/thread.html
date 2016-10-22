@@ -1,0 +1,25 @@
+{% extends "board/base.html" %}
+
+{% block content %}
+
+{% include "board/thread_preview.html" %}
+
+{% if posts_list %}
+
+{% for post in posts_list %}
+<h4>{{ post.topic }}</h4>
+{{ post.text }}
+{{ post.pub_date }}
+{% endfor %}
+
+{% else %}
+<p>There are no posts!</p>
+{% endif %}
+
+<form action="" method="POST">
+{% csrf_token %}
+{{ form.as_p }}
+<button type="sumbit" value="Reply!">Send</button>
+</form>
+
+{% endblock %}

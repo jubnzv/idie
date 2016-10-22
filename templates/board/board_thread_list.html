@@ -1,0 +1,16 @@
+{% if threads_list %}
+<ul>
+  {% for thread in threads_list %}
+  {% include "board/thread_preview.html" %}
+  {% endfor %}
+</ul>
+
+{% else %}
+
+{% if board_slug %}
+<p>There are no threads at /{{ board_slug }}!</p>
+{% else %}
+<p>No news</p>
+{% endif %}
+
+{% endif %}

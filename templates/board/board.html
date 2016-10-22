@@ -1,0 +1,17 @@
+{% extends "board/base.html" %}
+
+{% block content %}
+
+{% include "board/board_header.html" with name=this_board_name desc=this_board_desc %}
+
+{% if not is_ro %}
+{% include "board/create_thread_menu.html" %}
+{% endif %}
+
+{% include "board/board_thread_list.html" with threads_list=threads_list %}
+
+{% if not is_ro %}
+{% include "board/create_thread_menu.html" %}
+{% endif %}
+
+{% endblock %}

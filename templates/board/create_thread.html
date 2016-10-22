@@ -1,0 +1,18 @@
+{% extends "board/base.html" %}
+
+{% block content %}
+
+{% if not board_is_ro %}
+<center>
+    <form action="" method="POST">
+        {% csrf_token %}
+        <p>Topic: {{ form.topic }}</p>
+        <p>Text: {{ form.text }}</p>
+        <p><button type="sumbit" value="Create thread">Create</button></p>
+    </form>
+</center>
+{% else %}
+<p>Can't create thread here :(</p>
+{% endif %}
+
+{% endblock %}

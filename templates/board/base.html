@@ -1,0 +1,18 @@
+{% load staticfiles %}
+{% load navigation %}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="{% static 'css/board.css' %}">
+    </head>
+    
+    <div class="navigation">
+        {% get_board_list board_slug %}
+    </div>
+    
+    {% block content %}
+    {% endblock %}
+    
+    {% include "board/footer.html" %}
+</html>
