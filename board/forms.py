@@ -7,6 +7,7 @@ from board.models import Post
 class PostForm(forms.ModelForm):
     topic = forms.CharField(
         label="Topic",
+        required=False,
     )
     text = forms.CharField(
         label="Post",
@@ -15,6 +16,15 @@ class PostForm(forms.ModelForm):
     )
     is_sage = forms.BooleanField(
         label="Sage",
+        required=False,
+    )
+    author_name = forms.CharField(
+        label="Name",
+        initial="Anonymous",
+        required=True,
+    )
+    author_email = forms.EmailField(
+        label="E-mail",
         required=False,
     )
     pub_date = datetime.datetime.now()
@@ -26,7 +36,7 @@ class PostForm(forms.ModelForm):
 
     class Meta:
         model = Post
-        fields = ["topic", "text", "is_sage"]
+        fields = ["topic", "text", "is_sage", "author_name", "author_email"]
 
 
 # class ThreadForm(forms.ModelForm):

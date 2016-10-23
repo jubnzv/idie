@@ -88,20 +88,46 @@ class File(models.Model):
 
 class Post(models.Model):
     thread = models.ForeignKey(Thread)
-    slug = models.SlugField("Slug: post number")
-    topic = models.CharField("Topic", max_length=50, blank=True)
-    text = models.TextField("Full text", max_length=5000, blank=True)
-    pub_date = models.DateTimeField("Publication date",
-                                    auto_now_add=True)
-    is_op_post = models.BooleanField("Post is first in the thread",
-                                     default=False)
-    is_sage = models.BooleanField("Don't bump the thread",
-                                  default=False)
     file = models.OneToOneField(File, blank=True, null=True)
+
+    slug = models.SlugField(
+        "Slug: post number",
+    )
+    topic = models.CharField(
+        "Topic",
+        max_length=50,
+        blank=True,
+    )
+    text = models.TextField(
+        "Full post text",
+        max_length=5000,
+        blank=False,
+    )
+    pub_date = models.DateTimeField(
+        "Publication date",
+        auto_now_add=True,
+    )
+    is_op_post = models.BooleanField(
+        "Post is first in the thread",
+        default=False,
+    )
+    is_sage = models.BooleanField(
+        "Don't bump the thread",
+        default=False,
+    )
+    author_name = models.CharField(
+        "Author's name",
+        default="Anonymous",
+        max_length=30,
+        blank=True,
+    )
+    author_email = models.EmailField(
+        "Author's email",
+        null=True,
+    )
 
     class Meta:
         verbose_name = "Post"
-        # ordering = ["slug"]
 
     def next_post_num(self):
         """Next post number for current thread."""

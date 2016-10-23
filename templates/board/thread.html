@@ -7,9 +7,16 @@
 {% if posts_list %}
 
 {% for post in posts_list %}
+<hr>
 <h4>{{ post.topic }}</h4>
-{{ post.text }}
-{{ post.pub_date }}
+by {{ post.author_name }}
+{% if post.author_email %}
+({{ post.author_email }})
+{% endif %}
+at {{ post.pub_date }}
+<p>
+    {{ post.text }}
+<hr>
 {% endfor %}
 
 {% else %}
@@ -18,11 +25,11 @@
 
 <form action="" method="POST">
     {% csrf_token %}
+    <p>Topic: {{ form.topic }} Name: {{ form.author_name }} E-mail: {{ form.author_email }}</p>
+    <p>SAGE: {{ form.is_sage }}</p>
+    <p>Post: {{ form.text }}</p>
     <!-- {{ form.as_p }} -->
-    <p>Topic: {{ form.topic }}</p>
-    <p>Text: {{ form.text }}</p>
-    <p>Sage: {{ form.is_sage }}</p>
-    <button type="sumbit" value="Reply!">Send</button>
+    <button type="sumbit">Reply!</button>
 </form>
 
 {% endblock %}
