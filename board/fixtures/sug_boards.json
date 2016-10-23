@@ -1,0 +1,29 @@
+[
+    {
+        "model": "board.Board",
+        "pk": 2,
+        "fields": {
+            "slug": "a",
+            "name": "Anime",
+            "desc": "Anime section"
+        }
+    },
+    {
+        "model": "board.Board",
+        "pk": 3,
+        "fields": {
+            "slug": "b",
+            "name": "Random",
+            "desc": "Random section" 
+        }
+    },
+    {
+        "model": "board.Board",
+        "pk": 4,
+        "fields": {
+            "slug": "c",
+            "name": "Coding",
+            "desc": "Programming section" 
+        }
+    }
+]

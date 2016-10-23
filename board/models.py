@@ -95,6 +95,8 @@ class Post(models.Model):
                                     auto_now_add=True)
     is_op_post = models.BooleanField("Post is first in the thread",
                                      default=False)
+    is_sage = models.BooleanField("Don't bump the thread",
+                                  default=False)
     file = models.OneToOneField(File, blank=True, null=True)
 
     class Meta:
@@ -116,4 +118,6 @@ class Post(models.Model):
 
     @models.permalink
     def get_absolute_url(self):
-        return "board:thread-page", [self.pkw]
+        thread = self.thread
+        board = thread.board
+        return ('thread-page', [board.slug, thread.slug])

@@ -17,9 +17,12 @@
 {% endif %}
 
 <form action="" method="POST">
-{% csrf_token %}
-{{ form.as_p }}
-<button type="sumbit" value="Reply!">Send</button>
+    {% csrf_token %}
+    <!-- {{ form.as_p }} -->
+    <p>Topic: {{ form.topic }}</p>
+    <p>Text: {{ form.text }}</p>
+    <p>Sage: {{ form.is_sage }}</p>
+    <button type="sumbit" value="Reply!">Send</button>
 </form>
 
 {% endblock %}

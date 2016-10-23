@@ -1,0 +1,12 @@
+[
+    {
+        "model": "board.Board",
+        "pk": 1,
+        "fields": {
+            "slug": "nws",
+            "name": "News",
+            "desc": "Latest news",
+            "is_ro": "True" 
+        }
+    }
+]

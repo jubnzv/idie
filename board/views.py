@@ -9,7 +9,7 @@ from .forms import PostForm
 
 
 class IndexView(TemplateView):
-    """ List of boards + latest news (not implemented) """
+    """ List of boards + latest news."""
     template_name = 'board/index.html'
 
     def get_context_data(self, **kwargs):
@@ -18,7 +18,8 @@ class IndexView(TemplateView):
 
         context['boards_list'] = Board.objects.all()
 
-        news_board = Board.objects.get(id=2) # TODO
+        # TODO: Hardcoded news board id
+        news_board = Board.objects.get(id=1)
         context['news_list'] = Thread.objects.filter(board=news_board)
 
         return context
@@ -37,16 +38,16 @@ class BoardView(TemplateView):
 
         context['is_ro'] = this_board.is_ro
 
-        threads = Thread.objects.filter(board=this_board)
+        threads = Thread.objects.filter(board=this_board).order_by('-bump_date')
         context['threads_list'] = threads
 
         return context
 
 
 class ThreadView(SuccessMessageMixin, CreateView):
-    """ List of posts for selected thread """
+    """ List of posts for selected thread + posting form."""
     template_name = 'board/thread.html'
-    success_message = "Post successfully updated!"
+    success_message = "Post successfully created!"
     form_class = PostForm
 
     def get_queryset(self):
@@ -72,6 +73,11 @@ class ThreadView(SuccessMessageMixin, CreateView):
 
         post.pub_date = datetime.datetime.now()
         post.thread_id = thread.id
+
+        # Update bump date for thread
+        if post.is_sage is False:
+            thread.bump_date = post.pub_date
+            thread.save()
 
         form.instance = post
         return super(ThreadView, self).form_valid(form)
@@ -106,6 +112,7 @@ class CreateThreadView(SuccessMessageMixin, CreateView):
         post = form.instance
         post.pub_date = time_now
         post.is_op_post = True
+        post.is_sage = False
         post.thread = thread
 
         form.instance = post

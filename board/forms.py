@@ -13,6 +13,10 @@ class PostForm(forms.ModelForm):
         widget=forms.Textarea,
         required=True,
     )
+    is_sage = forms.BooleanField(
+        label="Sage",
+        required=False,
+    )
     pub_date = datetime.datetime.now()
     is_op_post = False
     file = None
@@ -22,7 +26,7 @@ class PostForm(forms.ModelForm):
 
     class Meta:
         model = Post
-        fields = ["topic", "text"]
+        fields = ["topic", "text", "is_sage"]
 
 
 # class ThreadForm(forms.ModelForm):
