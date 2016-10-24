@@ -1,6 +1,8 @@
 from django import forms
 import datetime
 
+from captcha.fields import CaptchaField
+
 from board.models import Post
 
 
@@ -30,6 +32,7 @@ class PostForm(forms.ModelForm):
     pub_date = datetime.datetime.now()
     is_op_post = False
     file = None
+    captcha = CaptchaField()
 
     def do_post(thread_):
         print("posted.")

@@ -28,6 +28,10 @@ at {{ post.pub_date }}
     <p>Topic: {{ form.topic }} Name: {{ form.author_name }} E-mail: {{ form.author_email }}</p>
     <p>SAGE: {{ form.is_sage }}</p>
     <p>Post: {{ form.text }}</p>
+    <p>
+        {{ form.captcha }}
+        {{ form.captcha.errors }}
+    </p>
     <!-- {{ form.as_p }} -->
     <button type="sumbit">Reply!</button>
 </form>

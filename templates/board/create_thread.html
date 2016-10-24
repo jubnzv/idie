@@ -8,6 +8,8 @@
         {% csrf_token %}
         <p>Topic: {{ form.topic }} Name: {{ form.author_name }} E-mail: {{ form.author_email }}</p>
         <p>Text: {{ form.text }}</p>
+        {{ form.captcha }}
+        {{ form.captcha.errors }}
         <p><button type="sumbit" value="Create thread">Create</button></p>
     </form>
 </center>

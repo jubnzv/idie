@@ -18,5 +18,6 @@ from django.contrib import admin
 
 urlpatterns = [
     url(r'', include('board.urls')),
+    url(r'^captcha/', include('captcha.urls')),
     url(r'^admin/', admin.site.urls),
 ]
