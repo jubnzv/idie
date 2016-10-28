@@ -1,3 +1,5 @@
+{% load thumbnail %}
+
 {% for op_post in thread.op_post %}
 <hr>
 {% if op_post.topic %}
@@ -5,6 +7,11 @@
   <a href="/{{ board_slug }}/{{ thread.slug }}">{{ op_post.topic }}</a>
 </h3>
 {% endif %}
+
+{% thumbnail op_post.image "100x100" as im %}
+<img src="{{ im.url }}">
+{% endthumbnail %}
+
 <p>Created: {{ op_post.pub_date }} by {{ op_post.author_name }}</p>
 <p>Last post: {{ thread.bump_date }} by TODO~</p>
 {{ op_post.text }}

@@ -7,6 +7,7 @@ from unipath import Path
 
 BASE_DIR = Path(__file__).ancestor(2)
 MEDIA_ROOT = BASE_DIR.child("media")
+MEDIA_URL = '/media/'
 
 DEBUG = False
 
@@ -23,6 +24,7 @@ INSTALLED_APPS = [
 
     'django_extensions',
     'captcha',
+    'sorl.thumbnail',
 
     'board.apps.BoardConfig',
 ]

@@ -28,3 +28,5 @@ DATABASES = {
         'PORT': "",
     }
 }
+
+THUMBNAIL_DEBUG = True

@@ -77,19 +77,14 @@ class Thread(models.Model):
         return "board:thread-page", [self.pk]
 
 
-class File(models.Model):
-    name = models.CharField("Original file name", max_length=64)
-    file = models.FileField(upload_to='files/', blank=True)
-
-    class Meta:
-        verbose_name = "File"
-        ordering = ["name"]
-
-
 class Post(models.Model):
     thread = models.ForeignKey(Thread)
-    file = models.OneToOneField(File, blank=True, null=True)
 
+    image = models.ImageField(
+        "Image",
+        upload_to="img/",
+        blank=True,
+    )
     slug = models.SlugField(
         "Slug: post number",
     )

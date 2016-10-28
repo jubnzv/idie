@@ -4,10 +4,11 @@
 
 {% if not board_is_ro %}
 <center>
-    <form action="" method="POST">
+    <form action="" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         <p>Topic: {{ form.topic }} Name: {{ form.author_name }} E-mail: {{ form.author_email }}</p>
         <p>Text: {{ form.text }}</p>
+        <p>Image: {{ form.image }}</p>
         {{ form.captcha }}
         {{ form.captcha.errors }}
         <p><button type="sumbit" value="Create thread">Create</button></p>

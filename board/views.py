@@ -74,12 +74,15 @@ class ThreadView(SuccessMessageMixin, CreateView):
         post.pub_date = datetime.datetime.now()
         post.thread_id = thread.id
 
+        print("IMAGE:: " + str(post.image))
+
         # Update bump date for thread
         if post.is_sage is False:
             thread.bump_date = post.pub_date
             thread.save()
 
         form.instance = post
+
         return super(ThreadView, self).form_valid(form)
 
 
@@ -114,6 +117,8 @@ class CreateThreadView(SuccessMessageMixin, CreateView):
         post.is_op_post = True
         post.is_sage = False
         post.thread = thread
+
+        print("DEBUG:: " + str(post.image))
 
         form.instance = post
         return super(CreateThreadView, self).form_valid(form)

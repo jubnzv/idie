@@ -29,9 +29,12 @@ class PostForm(forms.ModelForm):
         label="E-mail",
         required=False,
     )
+    image = forms.ImageField(
+        label="Image",
+        required=False,
+    )
     pub_date = datetime.datetime.now()
     is_op_post = False
-    file = None
     captcha = CaptchaField()
 
     def do_post(thread_):
@@ -39,7 +42,7 @@ class PostForm(forms.ModelForm):
 
     class Meta:
         model = Post
-        fields = ["topic", "text", "is_sage", "author_name", "author_email"]
+        fields = ["topic", "text", "is_sage", "author_name", "author_email", "image"]
 
 
 # class ThreadForm(forms.ModelForm):
