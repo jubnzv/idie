@@ -1,14 +1,33 @@
-{% if threads_list %}
+{% load thumbnail %}
+
+{% if thread_list %}
 <ul>
-  {% for thread in threads_list %}
-  {% include "board/thread_preview.html" %}
-  {% endfor %}
+    {% for thread in thread_list %}
+    {% with op_post=thread.op_post.0 %}
+    <hr>
+    {% if op_post.topic %}
+    <h3>
+        <a href="/{{ board.slug }}/{{ thread.slug }}">{{ op_post.topic }}</a>
+    </h3>
+    {% endif %}
+
+    {% thumbnail op_post.image "100x100" as im %}
+    <img src="{{ im.url }}">
+    {% endthumbnail %}
+
+    <p>Created: {{ op_post.pub_date }} by {{ op_post.author_name }}</p>
+    <p>Last post: {{ thread.bump_date }} by TODO~</p>
+    {{ op_post.text }}
+    <center><a href="/{{ board.slug }}/{{ thread.slug }}">[ Open thread ]</a></center>  
+    <hr>
+    {% endwith %}
+    {% endfor %}
 </ul>
 
 {% else %}
 
-{% if board_slug %}
-<p>There are no threads at /{{ board_slug }}!</p>
+{% if board.slug %}
+<p>There are no threads at /{{ board.slug }}!</p>
 {% else %}
 <p>No news</p>
 {% endif %}

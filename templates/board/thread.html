@@ -3,11 +3,9 @@
 
 {% block content %}
 
-{% include "board/thread_preview.html" %}
+{% if post_list %}
 
-{% if posts_list %}
-
-{% for post in posts_list %}
+{% for post in post_list %}
 <hr>
 {% thumbnail post.image "100x100" as im %}
 <img src="{{ im.url }}">
