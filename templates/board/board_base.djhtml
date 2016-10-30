@@ -1,0 +1,8 @@
+{% extends "base.djhtml" %}
+
+{% block header %}
+    {% include "board/board_header.djhtml" %}
+{% endblock %}
+
+{% block content %}
+{% endblock %}

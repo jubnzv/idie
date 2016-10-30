@@ -92,3 +92,9 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     BASE_DIR.child("static"),
 ]
+
+
+# Board-specific settings which normally should be redefined from config.ini
+#THREADS_ON_PAGE=10
+#NEWS_BOARD_ID=1
+#NEWS_ON_PAGE=10

@@ -1,0 +1,21 @@
+{% extends "board/board_base.djhtml" %}
+
+{% block content %}
+    {% if is_paginated %}
+        {% include "board/board_pagination.djhtml" %}
+    {% endif %}
+
+    {% if not is_ro %}
+        <hr><center><a href="{{ request.get_full_path }}create_thread">[ Create thread ]</a></center><hr>
+    {% endif %}
+
+    {% include "board/board_thread_list.djhtml" %}
+
+    {% if not board.is_ro %}
+        <hr><center><a href="{{ request.get_full_path }}create_thread">[ Create thread ]</a></center><hr>
+    {% endif %}
+
+    {% if is_paginated %}
+        {% include "board/board_pagination.djhtml" %}
+    {% endif %}
+{% endblock %}

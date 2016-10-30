@@ -1,0 +1,24 @@
+{% load thumbnail %}
+
+<table>
+    <tr>
+        <td>
+            {% thumbnail post.image "100x100" as im %}
+            <img src="{{ im.url }}">
+            {% endthumbnail %}
+        </td>
+        <td>
+            <h4>{{ post.topic }}</h4>
+        </td>
+        <td>
+            {{ post.author_name }}
+            {% if post.author_email %}
+                ({{ post.author_email }})
+            {% endif %}
+            {{ post.pub_date }}
+        </td>
+    </tr>
+    <tr><td>
+        <p>{{ post.text }}</p>
+    </td></tr>
+</table>

@@ -1,0 +1,7 @@
+<center>
+    <h1>/{{ board.slug }}/ – {{ board.name }}</h1>
+</center>
+
+<center>
+    <h4>{{ board.desc }}</h4>
+</center>

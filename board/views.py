@@ -1,8 +1,8 @@
 from django.views.generic import TemplateView, CreateView, ListView
 from django.contrib.messages.views import SuccessMessageMixin
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
+from django.conf import settings
 
 import datetime
 
@@ -10,34 +10,23 @@ from .models import Board, Thread, Post
 from .forms import PostForm
 
 
-class IndexView(TemplateView):
-    """ List of boards + latest news."""
-    template_name = 'board/index.html'
-
-    def get_context_data(self, **kwargs):
-        print(kwargs)
-        context = super(IndexView, self).get_context_data(**kwargs)
-
-        context['boards_list'] = Board.objects.all()
-
-        # TODO: Hardcoded news board id
-        news_board = Board.objects.get(id=1)
-        context['news_list'] = Thread.objects.filter(board=news_board)
-
-        return context
-
-
 class BoardView(ListView):
-    """ List of threads for selected board """
-    template_name = 'board/board.html'
-    # TODO: Hardcoded paginate_by number. Use config.ini here later~ 
-    paginate_by = 5
+    """
+    Representation of board: contents list of threads.
+    """
+    template_name = 'board/board.djhtml'
+    paginate_by = settings.THREADS_ON_PAGE
     model = Thread
     context_object_name = 'thread_list'
     ordering = '-bump_date'
+    board_id = None
 
     def get_queryset(self):
-        self.board = get_object_or_404(Board, slug=self.kwargs['board_slug'])
+        if self.board_id:
+            self.board = get_object_or_404(Board, id=self.board_id)
+        else:
+            self.board = get_object_or_404(Board, slug=self.kwargs['board_slug'])
+
         return Thread.objects.filter(board=self.board).order_by(self.ordering)
 
     def get_context_data(self, **kwargs):
@@ -46,9 +35,18 @@ class BoardView(ListView):
         return context
 
 
+class IndexView(BoardView):
+    """
+    'Latest news' board representation.
+    """
+    template_name = 'board/news.djhtml'
+    paginate_by = settings.NEWS_ON_PAGE
+    conetext_object_name = 'news_list'
+
+
 class ThreadView(CreateView, SuccessMessageMixin):
     """ Manages list of posts for current thread and reply form."""
-    template_name = 'board/thread.html'
+    template_name = 'board/thread.djhtml'
     success_message = "Post successfully created!"
     form_class = PostForm
     ordering = 'slug'
@@ -66,7 +64,11 @@ class ThreadView(CreateView, SuccessMessageMixin):
 
     def get_context_data(self, **kwargs):
         context = super(ThreadView, self).get_context_data(**kwargs)
-        context['post_list'] = self.get_queryset() # TODO: ugly~
+
+        # TODO: ugly~
+        context['post_list'] = self.get_queryset()
+        context['board'] = Board.objects.get(slug=self.kwargs['board_slug'])
+
         return context
 
     def form_valid(self, form, **kwargs):
@@ -93,15 +95,13 @@ class ThreadView(CreateView, SuccessMessageMixin):
 
 class CreateThreadView(SuccessMessageMixin, CreateView):
     """ Create thread form (separate page) """
-    template_name = 'board/create_thread.html'
+    template_name = 'board/board_create_thread.djhtml'
     form_class = PostForm
     success_message = "Thread was successfully created!"
 
     def get_context_data(self, **kwargs):
         context = super(CreateThreadView, self).get_context_data(**kwargs)
-        this_board = Board.objects.get(slug=self.kwargs['board_slug'])
-
-        context['board_is_ro'] = this_board.is_ro
+        context['board'] = Board.objects.get(slug=self.kwargs['board_slug'])
 
         return context
 

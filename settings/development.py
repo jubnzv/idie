@@ -30,3 +30,8 @@ DATABASES = {
 }
 
 THUMBNAIL_DEBUG = True
+
+# Settings from config.ini
+THREADS_ON_PAGE = config['board']['THREADS_ON_PAGE']
+NEWS_BOARD_ID = config['news']['NEWS_BOARD_ID']
+NEWS_ON_PAGE = config['news']['NEWS_ON_PAGE']

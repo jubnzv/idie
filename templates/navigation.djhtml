@@ -1,0 +1,13 @@
+<ul class="navbar news">
+    <a href="{% url 'news-page' %}">| Index |</a>
+</ul>
+
+{% if boards %}
+    <ul class="navbar">
+        {% for b in boards %}
+            <a href="{% url 'board-page'  b.slug %}">[ {{ b.slug }} ]</a>
+        {% endfor %}
+    </ul>
+{% else %}
+        <li><strong >There are no boards present.</strong></li>
+{% endif %}

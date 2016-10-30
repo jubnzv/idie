@@ -1,13 +1,13 @@
+from django.conf import settings
 from django.conf.urls import url
 from . import views
 
 urlpatterns = [
     url(r'^$',
-        views.IndexView.as_view(),
-        name='index-page'),
-    # url(r'^(?P<board_slug>\w+)/page(?P<page>[0-9]+)/$',
-    #     views.BoardView.as_view(),
-    #     name='board-page'),
+        views.IndexView.as_view(
+            board_id=settings.NEWS_BOARD_ID,
+        ),
+        name='news-page'),
     url(r'^(?P<board_slug>\w+)/$',
         views.BoardView.as_view(),
         name='board-page'),

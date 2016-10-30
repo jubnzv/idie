@@ -1,0 +1,19 @@
+{% if thread_list %}
+    <ul>
+        {% for thread in thread_list %}
+            {% with op_post=thread.op_post.0 %}
+                <hr>
+                {% include "board/thread_post_preview.djhtml" %}
+                <p>
+                <a href="/{{ board.slug }}/{{ thread.slug }}">[ Open ]</a>  
+                <hr>
+            {% endwith %}
+        {% endfor %}
+    </ul>
+{% else %}
+    {% if board.slug %}
+        <p>There are no threads at /{{ board.slug }}!</p>
+    {% else %}
+        <p>No news.</p>
+    {% endif %}
+{% endif %}

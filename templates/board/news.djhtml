@@ -1,0 +1,6 @@
+{% extends "base.djhtml" %}
+
+{% block content %}
+    <h1>Latest news</h1>
+    {% include "board/board_thread_list.djhtml" with threads_list=news_list %}
+{% endblock %}

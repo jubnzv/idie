@@ -10,9 +10,12 @@
     <div class="navigation">
         {% get_board_list board_slug %}
     </div>
+
+    {% block header %}
+    {% endblock %}
     
     {% block content %}
     {% endblock %}
     
-    {% include "board/footer.html" %}
+    {% include "footer.djhtml" %}
 </html>
