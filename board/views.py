@@ -1,4 +1,4 @@
-from django.views.generic import TemplateView, CreateView, ListView
+from django.views.generic import CreateView, ListView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
@@ -45,7 +45,9 @@ class IndexView(BoardView):
 
 
 class ThreadView(CreateView, SuccessMessageMixin):
-    """ Manages list of posts for current thread and reply form."""
+    """
+    Manages list of posts for current thread and reply form.
+    """
     template_name = 'board/thread.djhtml'
     success_message = "Post successfully created!"
     form_class = PostForm
@@ -93,8 +95,10 @@ class ThreadView(CreateView, SuccessMessageMixin):
         return super(ThreadView, self).form_valid(form)
 
 
-class CreateThreadView(SuccessMessageMixin, CreateView):
-    """ Create thread form (separate page) """
+class CreateThreadView(CreateView, SuccessMessageMixin):
+    """
+    Separate page for create thread.
+    """
     template_name = 'board/board_create_thread.djhtml'
     form_class = PostForm
     success_message = "Thread was successfully created!"
@@ -102,17 +106,15 @@ class CreateThreadView(SuccessMessageMixin, CreateView):
     def get_context_data(self, **kwargs):
         context = super(CreateThreadView, self).get_context_data(**kwargs)
         context['board'] = Board.objects.get(slug=self.kwargs['board_slug'])
-
         return context
 
     def form_valid(self, form, **kwargs):
         time_now = datetime.datetime.now()
 
-        board_slug = self.kwargs['board_slug']
-        board = Board.objects.get(slug=board_slug)
+        board = Board.objects.get(slug=self.kwargs['board_slug'])
 
         thread = Thread()
-        thread.id = board.next_thread_num()
+        thread.slug = board.next_thread_num()
         thread.board = board
         thread.bump_date = time_now
         thread.save()
@@ -127,5 +129,7 @@ class CreateThreadView(SuccessMessageMixin, CreateView):
         return super(CreateThreadView, self).form_valid(form)
 
     def get_success_url(self):
-        return reverse_lazy('board-page',
-                            kwargs={'board_slug': self.kwargs['board_slug']})
+        return reverse_lazy(
+            'board-page',
+            kwargs={'board_slug': self.kwargs['board_slug']},
+        )
